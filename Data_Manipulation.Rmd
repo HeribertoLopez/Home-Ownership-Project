@@ -1,0 +1,32 @@
+---
+title: "Untitled"
+output: pdf_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(tidyverse) 
+library(mosaic) 
+
+options(scipen=999)
+
+Home <- read_csv("~/Stats 316 F20/Project/Tanner_Heri/HomeOwnership.csv")
+Race <- read_csv("~/Stats 316 F20/Project/Tanner_Heri/RacePopulation.csv")
+
+Race <- Race %>%
+  select(Year, Region,`Pct White`,`Pct Black`, `Pct Hispanic`,
+         `Pct Asian`, `Pct Other`)
+
+Home <- Home %>%
+  left_join(Race) %>%
+  mutate(Population = `Population Change (in thousands)` * 1000,
+         Jobs = `Job Openings (in thousands)` * 1000,
+         Houses = `Housing Starts (thousands of units)` * 1000) %>%
+  select(Year, Region, Unemployment, Homeownership, Income, Population,
+         `Pct White`, `Pct Black`, `Pct Hispanic`, `Pct Asian`, `Pct Other`,
+         `Sales Price`, Jobs, Houses)
+
+write_csv(Home, "~/Stats 316 F20/Project/Tanner_Heri/Home.csv")
+```
+

@@ -1,0 +1,24 @@
+---
+title: "STAT 316 Literature Review"
+subtitle: 'Tanner McDonald and Heri Lopez'
+output: pdf_document
+---
+
+# Literature Review
+
+### Analysis of factors affecting homeownership: A survey of Hong Kong households
+
+In Hong Kong, homeownership rates have been on a downfall for the past twenty-five years. This study aimed to identify factors that affect homeownership rates. Researchers reached a convenient sample of renters and homeowners in Hong Kong through a survey that contained questions regarding sociodemographic factors and questions about factors that make it difficult to become a homeowner in Hong Kong. The analysis of factors identified four factors that affect homeownership and serve as constraints: Household economy, cost of living/housing, general property cost, and availability, and property market uncertainty. The study contains a few limitations. Most notably, the focus of the study revolves largely on homeownership in Hong Kong.
+
+
+
+### Homeownership and the American Dream
+
+Throughout the late 90 and early 2000s policymakers in the United States pushed for efforts to promote home ownership. Early thought encouraged the notion that all households could and should be homeowners. Homeownership was envisioned as being a part of the american dream. However, the housing crisis demonstrated the associated risks that could occur with homeownership as many of people lost their homes. Several factors have a demonstrated affect on homeownership, but there are several benefits to owning a home such as the accumulation of wealth and return on investment. However, some studies show that it is not always the case that the benefit of wealth accumulation occurs. Notably, factors determined to affect homeownership rates include home prices and incomes that have not kept up with the increase in home prices.
+
+
+### References:
+
+Oladinrin, O. (2020). An analysis of factors affecting homeownership: a survey of Hong Kong households. Journal of Housing and the Built Environment : HBE., 35(3), 939–956. https://doi.org/10.1007/s10901-019-09723-6 
+
+Goodman, L., & Mayer, C. (2018). Homeownership and the American Dream. The Journal of Economic Perspectives, 32(1), 31-58. Retrieved November 3, 2020, from http://www.jstor.org/stable/26297968
