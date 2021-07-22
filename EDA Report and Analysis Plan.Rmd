@@ -1,0 +1,230 @@
+---
+title: "Determinants of Homeownership Rates"
+author: "Heriberto Lopez and Tanner Macdonald" 
+subtitle: "STAT 316, Advanced Statistical Modeling \n St. Olaf College, Northfield MN 55057 USA" 
+date: "E-mail: lopez12@stolaf.edu, mcdona8@stolaf.edu"
+output: pdf_document
+editor_options: 
+  chunk_output_type: console
+  font_size: 12
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(mosaic)
+library(htmlTable)
+library(kableExtra)
+library(tidyverse)
+
+options(scipen=999)
+
+Home <- read_csv("~/Stats 316 F20/Project/Tanner_Heri/HomeOwnership.csv")
+Race <- read_csv("~/Stats 316 F20/Project/Tanner_Heri/RacePopulation.csv")
+
+Race <- Race %>%
+  dplyr::select(Year, Region, `Pct White`, `Pct Black`, `Pct Hispanic`, `Pct Asian`, `Pct Other`)
+
+
+Home <- Home %>%
+  left_join(Race) %>%
+  mutate(Population = `Population Change (in thousands)` * 1000,
+         Jobs = `Job Openings (in thousands)` * 1000,
+         Houses = `Housing Starts (thousands of units)` * 1000) %>%
+  dplyr::select(Year, Region, Unemployment, Homeownership, Income, Population,
+         `Pct White`, `Pct Black`, `Pct Hispanic`, `Pct Asian`, `Pct Other`,
+         `Sales Price`, Jobs, Houses)
+
+Home <- Home %>%
+  rename( 
+    Pctwhite = `Pct White`,
+    Pctblack = `Pct Black`, 
+    PctHispanic = `Pct Hispanic`, 
+    PctAsian = `Pct Asian`, 
+    PctOther = `Pct Other`, 
+    SalesPrice = `Sales Price`, 
+    )
+Home2k10 <- Home %>% 
+  filter(Year >= 2010)
+
+``` 
+
+
+
+# Introduction
+
+  In recent years, homeownership rates have experienced an influx of changes. In 2017, the Pew Research Center reported that more US households are renting than at any point in the past fifty years of the United States (Ciluffo, et all). Homeownership rates in the US are viewed as economic indicators, but are often not included in studies examining the economy. For many families in the US, owning a home is part of the american dream (Goodman, et al). However, recent economics hardships have placed a burden on American families and possibly the ability to buy or maintain households. Previous reserach has shown income, race and sales price as factors associated to homeownership rates. 
+ 
+  Income and sales price are associated factors that affect the influx of changes in homeownership rates. Intuitively, the higher the income the more households have to spend. Moreover, the sales price of homes have affects the decision for families to choose to become homeowners (Gwin, et al). The magnitude Income has on homeownerhsip may depend on how developed a region is. A cross-country analyis of United Nations data for both developed and developing countries showed increases in income associated with increases in the percentage of consumers that choose to own households (Gwin, et al). However, note that the mgnitude of the relationmship seemed to hold strongly for higher income developed countries.
+ 
+  Race is a factor that affects the influx of changes in homeownership rates. Demorgraphic data on homeownership rates often include race as a variable of interest. Previous, studies have shown homeownership rates are lower for minority race groups such as hispanics, african-americans, etc. Moreover, studies have shown that there is a negative impact on homeownership rates for non-white groups and the propersity has increased substantially throughout younger age groups in households and the increases in ownership for minority race groups has stalled or slowed down since the 1970's
+   
+   This study aims to examine economic factors associated with lower homeownership rates by region and year. 
+  
+# Materials and Methods 
+  
+  
+  
+# Results 
+
+# Discussion 
+
+# Appendix   
+
+
+Summary Statistics for each Variable  
+
+```{r}
+table(Home$Region)
+```
+
+```{r}
+summary(Home)
+```
+
+```{r}
+#Homeownership rates
+ggplot(data = Home, mapping = aes(x = Homeownership)) + 
+  geom_histogram() 
+```
+**Figure 1.** A histogram plot for the distribution of the homeownership rates.   
+
+```{r,}
+#Unemployment Rates 
+ggplot(data = Home, mapping = aes(x = Unemployment)) + 
+  geom_histogram() 
+
+```
+**Figure 2.** A histogram for the distribution of Unemployment rates. 
+
+```{r,}
+#Income
+ggplot(data = Home, mapping = aes(x = Income)) + 
+  geom_histogram()  
+``` 
+**Figure 3.** A histogram for the distribution of incomes. 
+
+```{r}
+#Population
+ggplot(data = Home, mapping = aes(x = Population)) + 
+  geom_histogram()  
+
+``` 
+**Figure 4.** A histogram for the distribution of the population. 
+
+```{r}
+#Sales Price
+ggplot(data = Home, mapping = aes(x = SalesPrice)) + 
+  geom_histogram()   
+``` 
+**FIgure 5.** A histogram for the Sales Price of households. 
+
+```{r}
+#Job Openings 
+ggplot(data = Home, mapping = aes(x = Jobs)) + 
+  geom_histogram()  
+
+``` 
+**Figure 6.** A histogram for the Jobs. 
+
+```{r}
+#Houses 
+ggplot(data = Home, mapping = aes(x = Houses)) + 
+  geom_histogram()
+
+```
+**Figure 7.** A histogram of the Houses being developed.   
+
+```{r}
+ggplot(data = Home, mapping = aes(x = Unemployment, y = Homeownership)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se =FALSE)
+
+```
+**Figure 8.** A scatterplot of unmployment and homeownership.
+
+```{r}
+ggplot(data = Home, mapping = aes(x = Income, Homeownership)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = TRUE)
+```
+**Figur 9.**  A scatterplot of Income and Homeownership. 
+
+```{r}
+ggplot(data = Home, mapping = aes(x = Population, y =       Homeownership)) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE)
+```
+**Figure 10.** A scatterplot of population and homeownership. 
+
+```{r}
+Home2k10 <- Home %>% 
+  filter(Year >= 2010)
+```
+
+```{r}
+
+ggplot(data = Home2k10, mapping = aes(x = Pctwhite, y = Homeownership)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) + facet_wrap(~Region) 
+```
+**Figure 11.** Percentage of White by region. 
+
+```{r}
+ggplot(data = Home2k10, mapping = aes(x = Pctblack, y = Homeownership)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) + 
+  facet_wrap(~Region)
+```
+**Figure 12.** Percentage of Black by Region. 
+
+```{r}
+
+ggplot(data = Home2k10, mapping = aes(x = PctHispanic, y = Homeownership)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) + 
+  facet_wrap(~Region)
+```
+**Figure 13.** Percentage of Hispanic by Region. 
+
+```{r}
+ggplot(data = Home2k10, mapping = aes(x = PctAsian, y = Homeownership)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) + 
+  facet_wrap(~Region)
+```
+**Figure 14.** Percentage of Asian by Region. 
+
+```{r}
+ggplot(data = Home2k10, mapping = aes(x = PctOther, y = Homeownership)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) + 
+  facet_wrap(~Region)
+```
+**Figure 15.** Perentage of Other by Region.
+   
+   
+#Refrences 
+
+Gwin, O. (2008). Do we really understand homeownership rates? An international study. International Journal of Housing Markets and Analysis, 1(1), 52–67. https://doi.org/10.1108/17538270810861157. 
+
+Goodman, L., & Mayer, C. (2018). Homeownership and the American Dream. The Journal of Economic Perspectives, 32(1), 31-58. Retrieved November 3, 2020, from http://www.jstor.org/stable/26297968
+
+Oladinrin, O. (2020). An analysis of factors affecting homeownership: a survey of Hong Kong households. Journal of Housing and the Built Environment : HBE., 35(3), 939–956. https://doi.org/10.1007/s10901-019-09723-6 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
